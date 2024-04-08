@@ -50,4 +50,12 @@ export class UserService {
     await this.model.findByIdAndDelete(id).exec();
     return { status: HttpStatus.OK, message: 'User deleted successfully' };
   }
+
+  async findByUsername(username: string): Promise<IUser> {
+    return this.model.findOne({ username }).exec();
+  }
+
+  async checkPassword(password: string, passwordDB: string): Promise<boolean> {
+    return bcrypt.compare(password, passwordDB);
+  }
 }
